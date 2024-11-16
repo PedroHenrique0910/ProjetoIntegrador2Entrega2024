@@ -78,9 +78,6 @@ router.post("/changePassword", (req, res) => {
     })  
 });
 
-
-
-
 router.get("/create", (req, res) => {
     res.sendFile(path.join(__dirname, "../../public/password.html"));
 });

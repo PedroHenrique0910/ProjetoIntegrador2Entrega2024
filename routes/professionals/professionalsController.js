@@ -1,9 +1,9 @@
 const express = require("express")
 const router = express.Router()
 const connection = require("../../database/database")
+const path = require("path");
 
-
-router.get("/professionals", (req, res) => {
+router.get("/professionalsList", (req, res) => {
     const query = `
     SELECT p.id, p.foto, p.nome, p.sobrenome, p.profissao, p.avaliacao, p.anosAtuacao, p.clientesAtendidos,
            a.comentario, a.estrelas
@@ -45,6 +45,10 @@ router.get("/professionals", (req, res) => {
     // Retorna os profissionais com suas avaliações como JSON
     res.json(Object.values(profissionais));
   });
+});
+
+router.get("/professionals-page", (req, res) => {
+  res.sendFile(path.join(__dirname, "../../public/professionals.html"));
 });
 
 

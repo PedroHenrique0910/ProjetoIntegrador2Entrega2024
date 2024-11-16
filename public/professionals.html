@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Lista de Profissionais</title>
-    <link href="./dist/styles.css" rel="stylesheet" />
+    <link href="/dist/styles.css" rel="stylesheet" />
     <style>
       .modal {
         display: none;
@@ -130,7 +130,7 @@
 
     <div class="mt-10 mb-6">
       <a
-        href="./home.html"
+        href="/"
         class="bg-gray-400 text-white py-2 px-4 rounded-md hover:bg-gray-500"
         >Voltar</a
       >
@@ -163,7 +163,9 @@
 
     <script>
       function carregarProfissionais() {
-        fetch("../professionals.json")
+        fetch("/professionalsList", {
+          method: 'GET',
+        })
           .then((response) => response.json())
           .then((jsonData) => {
             const nutricionistasList =
@@ -210,8 +212,12 @@
         clientes,
         avaliacoes
       ) {
+        
+        const basePath = "http://localhost:8080/images/"
+        const caminhoCompleto = basePath + foto
+
         document.getElementById("modal-nome").innerText = nome;
-        document.getElementById("modal-foto").src = foto;
+        document.getElementById("modal-foto").src = caminhoCompleto;
         document.getElementById("modal-profissao").innerText = profissao;
         document.getElementById("modal-avaliacao").innerHTML =
           gerarEstrelas(avaliacao);

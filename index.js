@@ -13,11 +13,10 @@ app.use(express.static('public'));
 app.use(cors());
 
 
-app.use("/professionals", professionalsController)
+app.use(professionalsController)
 app.use("/users", usersController)
 app.use(loginController)
 app.use("/", homeController)
-
 
 
 connection.connect((err) => {
