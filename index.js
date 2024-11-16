@@ -5,6 +5,7 @@ const professionalsController = require("./routes/professionals/professionalsCon
 const usersController = require("./routes/users/usersController")
 const homeController = require("./routes/home/homeController")
 const loginController = require("./routes/login/loginController")
+const blogController = require ("./routes/blog/blogController")
 const connection = require("./database/database")
 
 
@@ -17,6 +18,7 @@ app.use(professionalsController)
 app.use("/users", usersController)
 app.use(loginController)
 app.use("/", homeController)
+app.use(blogController)
 
 
 connection.connect((err) => {
