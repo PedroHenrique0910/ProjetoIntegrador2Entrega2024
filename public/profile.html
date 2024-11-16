@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/dist/styles.css" rel="stylesheet" />
+    <title>Editar Perfil</title>
+    <style>
+      body {
+        background-color: #f0f4f8; /* Cor de fundo suave */
+      }
+      .container {
+        max-width: 400px; /* Largura máxima para o conteúdo */
+        margin: 20px auto; /* Centraliza horizontalmente */
+        padding: 20px;
+        background-color: #ffffff; /* Fundo branco para o card */
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      }
+      .header {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      h1 {
+        font-size: 2rem;
+        color: #333333; /* Cor do texto */
+      }
+      label {
+        font-weight: bold;
+        color: #555555; /* Cor do texto das labels */
+      }
+      p {
+        margin: 0;
+        padding: 12px;
+        border-radius: 8px;
+        background-color: #e6f7ff; /* Fundo suave para o nome e e-mail */
+        color: #000000; /* Cor do texto (preto) */
+      }
+      input {
+        width: 100%;
+        padding: 12px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        margin-top: 8px;
+      }
+      input:focus {
+        border-color: #2a9d8f; /* Cor da borda ao focar */
+        outline: none;
+      }
+      button {
+        width: 100%;
+        padding: 12px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        margin-top: 12px;
+      }
+      .save-btn {
+        background-color: #2a9d8f; /* Botão de salvar */
+        color: white;
+      }
+      .back-btn {
+        background-color: #e63946; /* Botão de voltar */
+        color: white;
+      }
+    </style>
+  </head>
+  <body
+    class="bg-custom-blue text-white flex flex-col items-center justify-center min-h-screen"
+  >
+    <div class="container">
+      <div class="header">
+        <h1>👤 Editar Perfil</h1>
+      </div>
+
+      <div class="mb-4">
+        <label>Nome:</label>
+        <p id="nomeUsuario">Seu Nome</p>
+      </div>
+
+      <div class="mb-4">
+        <label>Email:</label>
+        <p id="emailUsuario">seuemail@example.com</p> 
+      </div>
+
+      <div class="mb-4">
+        <label>Senha Atual:</label>
+        <input type="password" id="senha-atual" placeholder="Sua Senha Atual" />
+      </div>
+
+      <div class="mb-4">
+        <label>Nova Senha:</label>
+        <input type="password" id="nova-senha" placeholder="Nova Senha" />
+      </div>
+
+      <div class="mb-4">
+        <label>Confirmar Nova Senha:</label>
+        <input
+          type="password"
+          id="confirmar-senha"
+          placeholder="Confirmar Nova Senha"
+        />
+      </div>
+      
+      <button class="save-btn" onclick="salvarPerfil()">
+        Salvar Informações
+      </button>
+      <button class="back-btn" onclick="window.location.href='/'">
+        Voltar
+      </button>
+    </div>
+      
+    <script>
+       window.onload = function() {
+        const email = localStorage.getItem("email");
+        const senha = localStorage.getItem("senha");
+
+          document.getElementById("emailUsuario").innerText = email;
+
+          const data = {
+            email: email
+          };
+
+          fetch("/users/searchName", { 
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(data => { 
+              const { nome } = data;
+              document.getElementById("nomeUsuario").innerText = nome; 
+        })
+    } 
+       
+    </script>
+
+    <script>
+      function salvarPerfil() {
+        const senhaAtual = document.getElementById("senha-atual").value;
+        const novaSenha = document.getElementById("nova-senha").value;
+        const confirmarSenha = document.getElementById("confirmar-senha").value;
+
+        if (novaSenha !== confirmarSenha) {
+          alert("As novas senhas não correspondem.");
+          return;
+        }
+
+        if (novaSenha === "") {
+          alert("A nova senha não pode estar vazia.");
+          return;
+        }
+
+        const data = {
+            senhaAtual: senhaAtual,
+            novaSenha: novaSenha,
+            email: localStorage.getItem("email")
+          };
+
+          fetch("/users/changePassword", { 
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+            
+        })
+        .then(response => response.json())
+        .then(data => { 
+          window.alert(data.message)
+          if (data.message === "Senha alterada com sucesso") {  
+             window.location.href = "/"; 
+          }
+          else {
+             window.location.href = "/users/profile"
+          }  
+        })
+        
+      }
+    </script>
+
+
+
+  </body>
+</html>

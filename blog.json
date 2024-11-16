@@ -1,0 +1,28 @@
+[
+  {
+    "id": 1,
+    "titulo": "Título da Notícia 1",
+    "autor": "Autor 1",
+    "data": "05/11/2024",
+    "imagem": "../src/health.jpg",
+    "detalhes": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.\nVestibulum et orci at felis consequat auctor.\nInteger facilisis dui vitae arcu gravida, eu gravida velit euismod.\nQuisque in purus libero. Nulla gravida, nisl id vulputate sagittis, neque lectus consectetur nunc, at hendrerit libero quam in nunc.\nFusce vitae varius est, nec vestibulum ex. Sed sit amet purus nec velit facilisis dignissim.\n\nPhasellus sed mauris lacus. Curabitur vitae libero nec mi volutpat dictum.\n\nSed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam. Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.\n\n**Conclusão:**\nDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+    "link": "detalhe-noticia1.html"
+  },
+  {
+    "id": 2,
+    "titulo": "Título da Notícia 2",
+    "autor": "Autor 2",
+    "data": "06/11/2024",
+    "imagem": "../src/health.jpg",
+    "detalhes": "Sed ullamcorper, libero vel convallis tempor, ligula urna suscipit mi, vel scelerisque orci purus et magna.\nIn a feugiat lacus. Duis vehicula, magna ut fermentum dignissim, urna sapien pellentesque lectus, nec feugiat justo ipsum at quam.\nInteger euismod auctor elit, in sodales justo gravida nec.\nPraesent eget justo quis nulla tincidunt tincidunt.\nMauris tristique, libero non malesuada imperdiet, justo nunc facilisis nunc, sed tincidunt elit nisi ac mi.\n\n**Análise:**\nPhasellus sed mauris nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Sed consequat, eros nec gravida bibendum, justo neque fermentum elit, a tincidunt nunc lectus eu nisl.\n\n**Futuras Implicações:**\nA continuação desse tema poderá levar a novas discussões sobre as implicações sociais e econômicas envolvidas.",
+    "link": "detalhe-noticia2.html"
+  },
+  {
+    "id": 3,
+    "titulo": "Título da Notícia 3",
+    "autor": "Autor 3",
+    "data": "07/11/2024",
+    "imagem": "../src/health.jpg",
+    "detalhes": "Duis ut turpis non erat facilisis aliquam.\nInteger id diam sed massa interdum dictum.\nPellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.\nSed vel dolor vel libero tincidunt gravida.\nNulla tincidunt, libero sed aliquet convallis, leo magna blandit libero, vitae viverra ligula lacus nec lorem.\n\n**Importância do Tema:**\nCurabitur vitae urna nec augue tincidunt dignissim. Nunc ut sem gravida, convallis purus non, facilisis sapien.\n\nPraesent vestibulum, eros vitae gravida tincidunt, urna metus porttitor nulla, at scelerisque leo lectus non nisi. Aenean at ligula sed libero condimentum vestibulum. Aliquam erat volutpat.\n\n**Perspectivas Futuras:**\nCom a evolução deste cenário, é vital monitorar as novas tendências que surgem e como elas impactam as comunidades ao redor."
+  }
+]

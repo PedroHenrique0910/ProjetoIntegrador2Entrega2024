@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Listagem de Notícias</title>
+    <link href="./dist/styles.css" rel="stylesheet" />
+    <style>
+      /* Estilos para a modal */
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 50;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.7);
+        padding-top: 60px;
+      }
+      .modal-content {
+        background-color: #fff;
+        margin: 5% auto;
+        padding: 20px;
+        border: 2px solid #4a90e2;
+        border-radius: 8px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        width: 90%; /* Aumentando a largura da modal */
+        max-width: 800px; /* Aumentando o máximo da largura */
+        max-height: 80vh;
+        overflow-y: auto; /* Permitindo scroll interno */
+      }
+      .close {
+        color: #4a90e2;
+        float: right;
+        font-size: 24px;
+      }
+      .close:hover {
+        color: #d0021b;
+        cursor: pointer;
+      }
+      .modal-body {
+        max-height: 60vh;
+        overflow-y: auto;
+      }
+      h1,
+      h2 {
+        color: #333;
+      }
+      p {
+        line-height: 1.6;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-100 flex flex-col items-center min-h-screen">
+    <h1 class="text-4xl font-bold mt-10 mb-6">Lista de Notícias</h1>
+
+    <div id="noticias-container" class="w-full max-w-3xl mb-10">
+      <!-- As notícias serão injetadas aqui via JavaScript -->
+    </div>
+
+    <div class="mt-10 mb-6">
+      <a
+        href="home.html"
+        class="bg-red-400 text-white py-2 px-4 rounded-md hover:bg-red-500"
+        >Voltar para a Página Inicial</a
+      >
+    </div>
+
+    <!-- Modal -->
+    <div id="myModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h1 id="modal-title" class="text-3xl font-bold text-gray-800"></h1>
+        <p id="modal-author" class="text-gray-600 mt-2"></p>
+        <p id="modal-date" class="text-gray-500 mt-1"></p>
+        <div class="modal-body mt-4">
+          <h2 class="text-xl font-semibold text-gray-800 mb-4">
+            Detalhe Completo da Notícia
+          </h2>
+          <p id="modal-details" class="text-gray-700"></p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      fetch("../blog.json")
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Erro ao carregar o JSON");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          const container = document.getElementById("noticias-container");
+          data.forEach((noticia) => {
+            const noticiaDiv = document.createElement("div");
+            noticiaDiv.className =
+              "bg-white shadow-lg rounded-lg overflow-hidden mb-6";
+            noticiaDiv.innerHTML = `
+                        <div class="flex p-6">
+                            <img src="${noticia.imagem}" alt="Capa da Notícia" class="w-24 h-24 rounded-full object-cover mr-4" />
+                            <div>
+                                <h2 class="text-2xl font-bold text-gray-800">${noticia.titulo}</h2>
+                                <p class="text-gray-600 mt-2">Escrito por <strong>${noticia.autor}</strong></p>
+                                <p class="text-gray-500 mt-1">${noticia.data}</p>
+                                <button class="text-blue-500 hover:underline" onclick="openModal(${noticia.id})">Leia mais</button>
+                            </div>
+                        </div>`;
+            container.appendChild(noticiaDiv);
+          });
+        })
+        .catch((error) => {
+          console.error("Erro:", error);
+        });
+
+      function openModal(id) {
+        fetch("../blog.json")
+          .then((response) => response.json())
+          .then((data) => {
+            const noticia = data.find((n) => n.id === id);
+            if (noticia) {
+              document.getElementById("modal-title").textContent =
+                noticia.titulo;
+              document.getElementById(
+                "modal-author"
+              ).innerHTML = `Escrito por <strong>${noticia.autor}</strong>`;
+              document.getElementById("modal-date").textContent = noticia.data;
+              document.getElementById("modal-details").innerHTML =
+                noticia.detalhes.replace(/\n/g, "<br>");
+
+              document.getElementById("myModal").style.display = "block";
+            }
+          });
+      }
+
+      document.querySelector(".close").onclick = function () {
+        document.getElementById("myModal").style.display = "none";
+      };
+
+      window.onclick = function (event) {
+        if (event.target === document.getElementById("myModal")) {
+          document.getElementById("myModal").style.display = "none";
+        }
+      };
+    </script>
+  </body>
+</html>

@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lista de Profissionais</title>
+    <link href="./dist/styles.css" rel="stylesheet" />
+    <style>
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.8);
+      }
+      .modal-content {
+        background-color: #fff;
+        margin: 5% auto;
+        padding: 30px;
+        border-radius: 12px;
+        width: 90%;
+        max-width: 600px;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+        position: relative;
+      }
+      .close {
+        color: #e63946;
+        position: absolute;
+        right: 20px;
+        top: 15px;
+        font-size: 30px;
+        font-weight: bold;
+      }
+      .close:hover,
+      .close:focus {
+        color: #d62839;
+        text-decoration: none;
+        cursor: pointer;
+      }
+      .modal-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+      .modal-header img {
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        margin-right: 15px;
+        border: 2px solid #457b9d;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        object-fit: cover; /* Adicionando esta linha */
+      }
+      .modal-body {
+        margin-bottom: 20px;
+        color: #333;
+      }
+      .modal-footer {
+        text-align: right;
+      }
+      h2 {
+        font-size: 1.8rem;
+        color: #1d3557;
+        margin: 0;
+      }
+      p {
+        margin: 5px 0;
+      }
+      h3 {
+        margin-top: 15px;
+        color: #e63946;
+        font-size: 1.4rem;
+      }
+      ul {
+        list-style-type: none;
+        padding: 0;
+      }
+      li {
+        background-color: #f1faee;
+        margin: 5px 0;
+        padding: 10px;
+        border-radius: 5px;
+        border-left: 5px solid #2a9d8f;
+      }
+      button {
+        background-color: #2a9d8f;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+      button:hover {
+        background-color: #21867a;
+      }
+      .highlight {
+        background-color: #e9f5f5;
+        border-radius: 5px;
+        padding: 10px;
+        margin: 5px 0;
+        border-left: 5px solid #457b9d;
+        color: #1d3557;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-100 flex flex-col items-center min-h-screen">
+    <h1 class="text-4xl font-bold mt-10 mb-6">Lista de Profissionais</h1>
+
+    <div class="w-full max-w-3xl bg-white shadow-lg rounded-lg p-6 mb-6">
+      <h2 class="text-2xl font-semibold mb-4">Nutricionistas</h2>
+      <ul id="nutricionistas"></ul>
+    </div>
+
+    <div class="w-full max-w-3xl bg-white shadow-lg rounded-lg p-6 mb-6">
+      <h2 class="text-2xl font-semibold mb-4">Psicólogos</h2>
+      <ul id="psicologos"></ul>
+    </div>
+
+    <div class="w-full max-w-3xl bg-white shadow-lg rounded-lg p-6 mb-6">
+      <h2 class="text-2xl font-semibold mb-4">
+        Profissionais de Educação Física
+      </h2>
+      <ul id="personal_trainers"></ul>
+    </div>
+
+    <div class="mt-10 mb-6">
+      <a
+        href="./home.html"
+        class="bg-gray-400 text-white py-2 px-4 rounded-md hover:bg-gray-500"
+        >Voltar</a
+      >
+    </div>
+
+    <div id="modal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="fecharModal()">&times;</span>
+        <div class="modal-header">
+          <img id="modal-foto" src="" alt="Foto do Profissional" />
+          <h2 id="modal-nome"></h2>
+        </div>
+        <div class="modal-body">
+          <p class="highlight">Profissão: <span id="modal-profissao"></span></p>
+          <p class="highlight">Avaliação: <span id="modal-avaliacao"></span></p>
+          <p class="highlight">
+            Anos de Atuação: <span id="modal-anos"></span>
+          </p>
+          <p class="highlight">
+            Clientes Atendidos: <span id="modal-clientes"></span>
+          </p>
+          <h3>Avaliações de Clientes</h3>
+          <ul id="modal-avaliacoes"></ul>
+        </div>
+        <div class="modal-footer">
+          <button onclick="fecharModal()">Fechar</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function carregarProfissionais() {
+        fetch("../professionals.json")
+          .then((response) => response.json())
+          .then((jsonData) => {
+            const nutricionistasList =
+              document.getElementById("nutricionistas");
+            const psicologosList = document.getElementById("psicologos");
+            const personalTrainersList =
+              document.getElementById("personal_trainers");
+
+            jsonData.forEach((profissional) => {
+              const li = document.createElement("li");
+              li.className = "flex justify-between items-center border-b py-2";
+              li.innerHTML = `
+                            <span>${profissional.nome} ${
+                profissional.sobrenome
+              }</span>
+                            <a href="#" class="text-blue-500 hover:underline" onclick="abrirModal('${
+                              profissional.nome
+                            } ${profissional.sobrenome}', '${
+                profissional.foto
+              }', '${profissional.profissao}', ${profissional.avaliacao}, ${
+                profissional.anosAtuacao
+              }, ${profissional.clientesAtendidos}, ${JSON.stringify(
+                profissional.avaliacoes
+              ).replace(/"/g, "&quot;")})">Ver Detalhes</a>
+                        `;
+
+              if (profissional.profissao === "Nutricionista") {
+                nutricionistasList.appendChild(li);
+              } else if (profissional.profissao === "Psicólogo") {
+                psicologosList.appendChild(li);
+              } else if (profissional.profissao === "Personal Trainer") {
+                personalTrainersList.appendChild(li);
+              }
+            });
+          });
+      }
+
+      function abrirModal(
+        nome,
+        foto,
+        profissao,
+        avaliacao,
+        anos,
+        clientes,
+        avaliacoes
+      ) {
+        document.getElementById("modal-nome").innerText = nome;
+        document.getElementById("modal-foto").src = foto;
+        document.getElementById("modal-profissao").innerText = profissao;
+        document.getElementById("modal-avaliacao").innerHTML =
+          gerarEstrelas(avaliacao);
+        document.getElementById("modal-anos").innerText = anos;
+        document.getElementById("modal-clientes").innerText = clientes;
+
+        const modalAvaliacoes = document.getElementById("modal-avaliacoes");
+        modalAvaliacoes.innerHTML = "";
+        avaliacoes.forEach((avaliacao) => {
+          const li = document.createElement("li");
+          li.innerText = avaliacao.comentario;
+          modalAvaliacoes.appendChild(li);
+        });
+
+        document.getElementById("modal").style.display = "block";
+      }
+
+      function fecharModal() {
+        document.getElementById("modal").style.display = "none";
+      }
+
+      function gerarEstrelas(numEstrelas) {
+        return "⭐".repeat(numEstrelas) + "☆".repeat(5 - numEstrelas);
+      }
+
+      window.onload = carregarProfissionais;
+    </script>
+  </body>
+</html>

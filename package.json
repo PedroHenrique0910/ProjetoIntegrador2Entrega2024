@@ -1,0 +1,13 @@
+{
+  "dependencies": {
+    "autoprefixer": "^10.4.20",
+    "cors": "^2.8.5",
+    "express": "^4.21.1",
+    "mysql2": "^3.11.4",
+    "postcss": "^8.4.47",
+    "tailwindcss": "^3.4.14"
+  },
+  "scripts": {
+    "build": "tailwindcss -i ./src/public/styles.css -o ./src/public/dist/styles.css --watch"
+  }
+}
