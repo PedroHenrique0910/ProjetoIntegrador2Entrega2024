@@ -3,17 +3,17 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="/dist/styles.css" rel="stylesheet" />
+    <link href="./dist/styles.css" rel="stylesheet" />
     <title>Editar Perfil</title>
     <style>
       body {
-        background-color: #f0f4f8; /* Cor de fundo suave */
+        background-color: #f0f4f8;
       }
       .container {
-        max-width: 400px; /* Largura máxima para o conteúdo */
-        margin: 20px auto; /* Centraliza horizontalmente */
+        max-width: 400px;
+        margin: 20px auto;
         padding: 20px;
-        background-color: #ffffff; /* Fundo branco para o card */
+        background-color: #ffffff;
         border-radius: 12px;
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
       }
@@ -23,18 +23,18 @@
       }
       h1 {
         font-size: 2rem;
-        color: #333333; /* Cor do texto */
+        color: #333333;
       }
       label {
         font-weight: bold;
-        color: #555555; /* Cor do texto das labels */
+        color: #555555;
       }
       p {
         margin: 0;
         padding: 12px;
         border-radius: 8px;
-        background-color: #e6f7ff; /* Fundo suave para o nome e e-mail */
-        color: #000000; /* Cor do texto (preto) */
+        background-color: #e6f7ff;
+        color: #000000;
       }
       input {
         width: 100%;
@@ -42,9 +42,10 @@
         border-radius: 8px;
         border: 1px solid #ccc;
         margin-top: 8px;
+        color: #000000;
       }
       input:focus {
-        border-color: #2a9d8f; /* Cor da borda ao focar */
+        border-color: #2a9d8f;
         outline: none;
       }
       button {
@@ -56,11 +57,11 @@
         margin-top: 12px;
       }
       .save-btn {
-        background-color: #2a9d8f; /* Botão de salvar */
+        background-color: #2a9d8f;
         color: white;
       }
       .back-btn {
-        background-color: #e63946; /* Botão de voltar */
+        background-color: #e63946;
         color: white;
       }
     </style>
@@ -80,7 +81,7 @@
 
       <div class="mb-4">
         <label>Email:</label>
-        <p id="emailUsuario">seuemail@example.com</p> 
+        <p id="emailUsuario">seuemail@example.com</p>
       </div>
 
       <div class="mb-4">
@@ -101,7 +102,7 @@
           placeholder="Confirmar Nova Senha"
         />
       </div>
-      
+
       <button class="save-btn" onclick="salvarPerfil()">
         Salvar Informações
       </button>
@@ -109,32 +110,31 @@
         Voltar
       </button>
     </div>
-      
+
     <script>
-       window.onload = function() {
+      window.onload = function () {
         const email = localStorage.getItem("email");
         const senha = localStorage.getItem("senha");
 
-          document.getElementById("emailUsuario").innerText = email;
+        document.getElementById("emailUsuario").innerText = email;
 
-          const data = {
-            email: email
-          };
+        const data = {
+          email: email,
+        };
 
-          fetch("/users/searchName", { 
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(data)
+        fetch("/users/searchName", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
         })
-        .then(response => response.json())
-        .then(data => { 
-              const { nome } = data;
-              document.getElementById("nomeUsuario").innerText = nome; 
-        })
-    } 
-       
+          .then((response) => response.json())
+          .then((data) => {
+            const { nome } = data;
+            document.getElementById("nomeUsuario").innerText = nome;
+          });
+      };
     </script>
 
     <script>
@@ -154,34 +154,28 @@
         }
 
         const data = {
-            senhaAtual: senhaAtual,
-            novaSenha: novaSenha,
-            email: localStorage.getItem("email")
-          };
+          senhaAtual: senhaAtual,
+          novaSenha: novaSenha,
+          email: localStorage.getItem("email"),
+        };
 
-          fetch("/users/changePassword", { 
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(data)
-            
+        fetch("/users/changePassword", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
         })
-        .then(response => response.json())
-        .then(data => { 
-          window.alert(data.message)
-          if (data.message === "Senha alterada com sucesso") {  
-             window.location.href = "/"; 
-          }
-          else {
-             window.location.href = "/users/profile"
-          }  
-        })
-        
+          .then((response) => response.json())
+          .then((data) => {
+            window.alert(data.message);
+            if (data.message === "Senha alterada com sucesso") {
+              window.location.href = "/";
+            } else {
+              window.location.href = "/users/profile";
+            }
+          });
       }
     </script>
-
-
-
   </body>
 </html>

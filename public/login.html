@@ -4,8 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login</title>
-    <link href="/dist/styles.css" rel="stylesheet" />
-    <!-- Verifique o caminho do CSS -->
+    <link href="./dist/styles.css" rel="stylesheet" />
   </head>
   <body
     class="flex flex-col items-center justify-center min-h-screen bg-custom-blue text-white"
@@ -54,11 +53,9 @@
     </p>
 
     <script>
-
-        function logarNoAplicativo() {
-
+      function logarNoAplicativo() {
         event.preventDefault();
-        
+
         const email = document.querySelector('input[type="email"]').value;
         const senha = document.getElementById("senha").value;
 
@@ -68,36 +65,37 @@
           return;
         }
 
-        localStorage.setItem("email", email);  
-        localStorage.setItem("senha", senha); 
+        localStorage.setItem("email", email);
+        localStorage.setItem("senha", senha);
 
         const data = {
-            email: email,
-            senha: senha
-          };
+          email: email,
+          senha: senha,
+        };
 
-           fetch("/login", { 
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(data),
-            
+        fetch("/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
         })
-        .then(response => response.json())
-        .then(data => {
-          console.log("Dados recebidos do backend:", data);
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("Dados recebidos do backend:", data);
 
-            window.alert(data.message)
+            window.alert(data.message);
 
-            if (data.message === "Login validado com sucesso, entrando no aplicativo...") {  
-              return window.location.href = "/"; 
+            if (
+              data.message ===
+              "Login validado com sucesso, entrando no aplicativo..."
+            ) {
+              return (window.location.href = "/");
+            } else {
+              return (window.location.href = "/login");
             }
-            else {
-              return window.location.href = "/login"; 
-            }
-        })
-    } 
+          });
+      }
     </script>
   </body>
 </html>

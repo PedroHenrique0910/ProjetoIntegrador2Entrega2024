@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Lista de Profissionais</title>
-    <link href="/dist/styles.css" rel="stylesheet" />
+    <link href="./dist/styles.css" rel="stylesheet" />
     <style>
       .modal {
         display: none;
@@ -164,7 +164,7 @@
     <script>
       function carregarProfissionais() {
         fetch("/professionalsList", {
-          method: 'GET',
+          method: "GET",
         })
           .then((response) => response.json())
           .then((jsonData) => {
@@ -212,9 +212,8 @@
         clientes,
         avaliacoes
       ) {
-        
-        const basePath = "http://localhost:8080/images/"
-        const caminhoCompleto = basePath + foto
+        const basePath = "http://localhost:8080/images/";
+        const caminhoCompleto = basePath + foto;
 
         document.getElementById("modal-nome").innerText = nome;
         document.getElementById("modal-foto").src = caminhoCompleto;
