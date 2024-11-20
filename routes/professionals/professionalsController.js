@@ -16,7 +16,6 @@ router.get("/professionalsList", (req, res) => {
       return res.status(500).json({ error: 'Erro ao consultar o banco de dados' });
     }
 
-    // Organizando os dados para enviar como JSON
     const profissionais = results.reduce((acc, row) => {
       if (!acc[row.id]) {
         acc[row.id] = {
@@ -41,8 +40,6 @@ router.get("/professionalsList", (req, res) => {
 
       return acc;
     }, {});
-
-    // Retorna os profissionais com suas avaliações como JSON
     res.json(Object.values(profissionais));
   });
 });

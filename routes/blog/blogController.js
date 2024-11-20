@@ -30,7 +30,6 @@ router.get("/allBlogs", (req, res) => {
       }
       return acc;
     }, {});
-    // Retorna os profissionais com suas avaliações como JSON
     res.json(Object.values(blogs));
   });
 });

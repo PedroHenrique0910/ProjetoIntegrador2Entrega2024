@@ -58,25 +58,56 @@ router.post("/changePassword", (req, res) => {
     connection.query(checkSenhaAtual, (err, results) => {
         if (err) {
             console.error("Erro ao executar a query: ", err);
-            return res.status(500).json({message: 'Erro na consulta' });
+            return res.status(500).json({message: 'Erro na consulta...' });
         }
         else if (results[0].count > 0) {
             connection.query(updateSenha, (err, results) => {
                 if (err) {
                     console.error("Erro ao executar a query: ", err);
-                    return res.status(500).json({message: 'Erro na consulta' });
+                    return res.status(500).json({message: 'Erro na consulta...' });
                 }
                 else {
-                    return res.status(200).json({message: 'Senha alterada com sucesso' });
+                    return res.status(200).json({message: 'Senha alterada com sucesso!' });
                 }
             }) 
         }      
         else {
-            return res.status(404).json({message: 'Senha de incorreta! Tente novamente' });
+            return res.status(404).json({message: 'Senha incorreta! Tente novamente' });
         }    
         
     })  
 });
+
+router.post("/delete", (req, res) => {
+    var email = req.body.email
+    var senha = req.body.senha
+
+    const checkUser = `SELECT COUNT(*) AS count FROM usuarios where email = '${email}' and senha = '${senha}'`
+    const deleteUser = `DELETE FROM usuarios where email = '${email}' and senha = '${senha}'`
+
+    connection.query(checkUser, (err, results) => {
+        if (err) {
+            console.error("Erro ao executar a query: ", err);
+            return res.status(500).json({message: 'Erro na consulta' });
+        }
+        else if (results[0].count > 0) {
+            connection.query(deleteUser, (err, results) => {
+                if (err) {
+                    console.error("Erro ao executar a query: ", err);
+                    return res.status(500).json({message: 'Erro na consulta' });
+                }
+                else {
+                    return res.status(200).json({message: 'Usuario Deletado com sucesso!'});
+                }
+            }) 
+        }      
+        else {
+            return res.status(404).json({message: 'Senha incorreta! Tente novamente' });
+        }    
+        
+    })  
+});
+
 
 router.get("/create", (req, res) => {
     res.sendFile(path.join(__dirname, "../../public/password.html"));
@@ -84,6 +115,10 @@ router.get("/create", (req, res) => {
 
 router.get("/profile", (req, res) => {
     res.sendFile(path.join(__dirname, "../../public/profile.html"));
+});
+
+router.get("/delete", (req, res) => {
+    res.sendFile(path.join(__dirname, "../../public/delete.html"));
 });
 
 
