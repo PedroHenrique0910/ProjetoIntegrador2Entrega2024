@@ -7,13 +7,12 @@
     <link href="/dist/styles.css" rel="stylesheet" />
   </head>
   <body class="bg-gray-100 flex justify-center items-center min-h-screen">
-    <div class="bg-white rounded-lg shadow-lg w-full max-w-md p-6">
+    <div class="bg-white rounded-lg shadow-lg w-[90vw] max-w-md p-6">
       <h1 class="text-2xl font-semibold text-center text-red-500 mb-6">
         Excluir Conta
       </h1>
 
       <form id="deleteForm">
-
         <div class="mb-4">
           <label
             for="email"
@@ -119,7 +118,7 @@
       window.onload = function () {
         const email = localStorage.getItem("email");
         document.getElementById("email").value = email;
-      }
+      };
 
       function deletarConta() {
         const email = document.querySelector('input[type="email"]').value;
@@ -153,7 +152,7 @@
             if (data.message === "Usuario Deletado com sucesso!") {
               window.location.href = "/login";
             }
-            fecharModal(); 
+            fecharModal();
           });
       }
     </script>

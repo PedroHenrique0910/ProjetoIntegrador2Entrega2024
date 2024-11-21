@@ -4,108 +4,72 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Editar Perfil</title>
-    <style>
-      body {
-        background-color: #f0f4f8;
-      }
-      .container {
-        max-width: 400px;
-        margin: 20px auto;
-        padding: 20px;
-        background-color: #ffffff;
-        border-radius: 12px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-      }
-      .header {
-        text-align: center;
-        margin-bottom: 20px;
-      }
-      h1 {
-        font-size: 2rem;
-        color: #333333;
-      }
-      label {
-        font-weight: bold;
-        color: #555555;
-      }
-      p {
-        margin: 0;
-        padding: 12px;
-        border-radius: 8px;
-        background-color: #e6f7ff;
-        color: #000000;
-      }
-      input {
-        width: 95%;
-        padding: 12px;
-        border-radius: 8px;
-        border: 1px solid #ccc;
-        margin-top: 8px;
-        color: #000000;
-      }
-      input:focus {
-        border-color: #2a9d8f;
-        outline: none;
-      }
-      button {
-        width: 100%;
-        padding: 12px;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        margin-top: 12px;
-      }
-      .save-btn {
-        background-color: #2a9d8f;
-        color: white;
-      }
-      .back-btn {
-        background-color: #e63946;
-        color: white;
-      }
-    </style>
+    <link href="/dist/styles.css" rel="stylesheet" />
   </head>
   <body
-    class="bg-custom-blue text-white flex flex-col items-center justify-center min-h-screen"
+    class="bg-gray-100 text-gray-800 flex justify-center items-center min-h-screen"
   >
-    <div class="container">
-      <div class="header">
-        <h1>👤 Editar Perfil</h1>
+    <div class="bg-white rounded-lg shadow-lg w-full max-w-[90vw] p-6">
+      <div class="text-center mb-6">
+        <h1 class="text-2xl font-semibold text-gray-700">👤 Editar Perfil</h1>
       </div>
 
       <div class="mb-4">
-        <label>Nome:</label>
-        <p id="nomeUsuario">Seu Nome</p>
+        <label class="block text-sm font-medium text-gray-700">Nome:</label>
+        <p id="nomeUsuario" class="text-gray-600">Seu Nome</p>
       </div>
 
       <div class="mb-4">
-        <label>Email:</label>
-        <p id="emailUsuario">seuemail@example.com</p>
+        <label class="block text-sm font-medium text-gray-700">Email:</label>
+        <p id="emailUsuario" class="text-gray-600">seuemail@example.com</p>
       </div>
 
       <div class="mb-4">
-        <label>Senha Atual:</label>
-        <input type="password" id="senha-atual" placeholder="Sua Senha Atual" />
+        <label class="block text-sm font-medium text-gray-700"
+          >Senha Atual:</label
+        >
+        <input
+          type="password"
+          id="senha-atual"
+          placeholder="Sua Senha Atual"
+          class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
+        />
       </div>
 
       <div class="mb-4">
-        <label>Nova Senha:</label>
-        <input type="password" id="nova-senha" placeholder="Nova Senha" />
+        <label class="block text-sm font-medium text-gray-700"
+          >Nova Senha:</label
+        >
+        <input
+          type="password"
+          id="nova-senha"
+          placeholder="Nova Senha"
+          class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
+        />
       </div>
 
       <div class="mb-4">
-        <label>Confirmar Nova Senha:</label>
+        <label class="block text-sm font-medium text-gray-700"
+          >Confirmar Nova Senha:</label
+        >
         <input
           type="password"
           id="confirmar-senha"
           placeholder="Confirmar Nova Senha"
+          class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
         />
       </div>
 
-      <button class="save-btn" onclick="salvarPerfil()">
+      <button
+        class="w-full bg-teal-500 text-white py-2 rounded-md hover:bg-teal-600 focus:outline-none"
+        onclick="salvarPerfil()"
+      >
         Salvar Informações
       </button>
-      <button class="back-btn" onclick="window.location.href='/'">
+      <button
+        class="w-full bg-red-500 text-white py-2 mt-4 rounded-md hover:bg-red-600 focus:outline-none"
+        onclick="window.location.href='/'"
+      >
         Voltar
       </button>
     </div>
@@ -117,9 +81,7 @@
 
         document.getElementById("emailUsuario").innerText = email;
 
-        const data = {
-          email: email,
-        };
+        const data = { email: email };
 
         fetch("/users/searchName", {
           method: "POST",

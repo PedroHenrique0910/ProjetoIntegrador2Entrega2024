@@ -6,7 +6,6 @@
     <title>Listagem de Notícias</title>
     <link href="./dist/styles.css" rel="stylesheet" />
     <style>
-      /* Estilos para a modal */
       .modal {
         display: none;
         position: fixed;
@@ -26,10 +25,10 @@
         border: 2px solid #4a90e2;
         border-radius: 8px;
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-        width: 90%; /* Aumentando a largura da modal */
-        max-width: 800px; /* Aumentando o máximo da largura */
+        width: 90%;
+        max-width: 800px;
         max-height: 80vh;
-        overflow-y: auto; /* Permitindo scroll interno */
+        overflow-y: auto;
       }
       .close {
         color: #4a90e2;
@@ -56,8 +55,7 @@
   <body class="bg-gray-100 flex flex-col items-center min-h-screen">
     <h1 class="text-4xl font-bold mt-10 mb-6">Lista de Notícias</h1>
 
-    <div id="noticias-container" class="w-full max-w-3xl mb-10">
-    </div>
+    <div id="noticias-container" class="w-full max-w-[90vw] mb-10"></div>
 
     <div class="mt-10 mb-6">
       <a
@@ -99,7 +97,7 @@
             noticiaDiv.className =
               "bg-white shadow-lg rounded-lg overflow-hidden mb-6";
             noticiaDiv.innerHTML = `
-                        <div class="flex p-6">
+                        <div class="flex p-6 flex-col justify-center items-center">
                             <img src="http://localhost:8080/images/${noticia.imagem}" alt="Capa da Notícia" class="w-24 h-24 rounded-full object-cover mr-4" />
                             <div>
                                 <h2 class="text-2xl font-bold text-gray-800">${noticia.titulo}</h2>
