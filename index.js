@@ -17,8 +17,8 @@ app.use(cors());
 
 app.use(professionalsController)
 app.use("/users", usersController)
-app.use(loginController)
-app.use("/", homeController)
+app.use("/",loginController)
+app.use(homeController)
 app.use(blogController)
 
 

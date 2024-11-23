@@ -76,7 +76,7 @@
         </button>
 
         <a
-          href="/"
+          href="/home"
           class="flex justify-center w-full mt-4 bg-green-800 text-white py-2 px-4 rounded-md hover:bg-green-700 focus:outline-none"
         >
           Voltar
@@ -150,7 +150,7 @@
           .then((data) => {
             alert(data.message);
             if (data.message === "Usuario Deletado com sucesso!") {
-              window.location.href = "/login";
+              window.location.href = "/";
             }
             fecharModal();
           });
