@@ -32,3 +32,4 @@ Este protótipo visa demonstrar o fluxo e a interface de usuário (UI) de um apl
 - Interface responsiva que simula a experiência de um aplicativo móvel em dispositivos de diferentes tamanhos de tela.
 - Design moderno e atrativo, com foco na experiência do usuário.
 - Funcionalidades básicas de navegação, simulação de interação com o usuário.
+- Validações no backend para login, criação, edição e exclusão de conta.
